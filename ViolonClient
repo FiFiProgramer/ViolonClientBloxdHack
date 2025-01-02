@@ -1,0 +1,47 @@
+// ==UserScript==
+// @name         Vilon Client
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Cheat Client for bloxd.io (F: Fly)
+// @author       Amoniakk
+// @match        https://bloxd.io/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+
+    let isFlying = false;  
+    const flyingHeight = 10; 
+
+    function toggleFlight() {
+        isFlying = !isFlying;  
+        if (isFlying) {
+            console.log("Fly on!");
+        } else {
+            console.log("Fly off.");
+        }
+    }
+
+
+    function fly() {
+        if (isFlying) {
+            
+            const player = window.game?.player; 
+            if (player) {
+                player.y += flyingHeight; 
+            }
+        }
+    }
+
+    
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'f' || event.key === 'F') {
+            toggleFlight(); 
+        }
+    });
+
+    
+    setInterval(fly, 50);  
+})();
